@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -24,12 +25,16 @@ namespace VirtuosoPlugin.Controllers
         
         public IActionResult GetSignInOTP(dynamic ResponseText)
         {
+            // converts the json from the backend to string
+
             string response = ResponseText.ToString();
-            //
-            //response = response.Replace('\'', "\"");
-            var answer = JsonSerializer.Deserialize<ResponseText>(response);
-            
-            //var result = _signInOTP.GetSignInOTPResponse();
+
+            // writes the string into a text file.
+
+            using (StreamWriter writetext = new StreamWriter("write.txt"))
+            {
+                writetext.WriteLine(response);
+            }
             return Ok();
         }
     }
